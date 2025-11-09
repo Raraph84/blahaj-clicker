@@ -3,7 +3,6 @@ FROM oven/bun
 WORKDIR /app
 
 COPY package.json .
-COPY bun.lock .
 
 RUN bun install --production
 

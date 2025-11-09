@@ -3,9 +3,14 @@ import { Elysia } from "elysia";
 import { render } from "./utils/render";
 import staticPlugin from "@elysiajs/static";
 import websocket from "./websocket";
+import { getCount } from "./utils/database";
+import cors from "@elysiajs/cors";
 
 const app = new Elysia()
     .use(html())
+    .use(cors({
+        methods: ["GET"]
+    }))
     .use(staticPlugin())
     .use(staticPlugin({ prefix: "/lucide", assets: "node_modules/lucide-static/icons" }))
     .onAfterHandle(async ({ path, query, set }) => {
@@ -18,6 +23,12 @@ const app = new Elysia()
         }
     })
     .get("/", () => render("index"))
+    .get("/blahaj", () => {
+        let count = getCount()
+        return {
+            count
+        }
+    })
     .use(websocket)
     .listen(3000);
 

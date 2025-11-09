@@ -43,3 +43,5 @@ package-lock.json
 **/*.bun
 
 blahaj.sqlite
+
+bun.lock
