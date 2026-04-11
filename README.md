@@ -8,7 +8,7 @@ A simple site where the aim is to click on a blahaj :3
 ### Installation
 1. Clone and install dependencies
 ```sh
-git clone https://github.com/oriionn/blahaj-clicker
+git clone https://git.oriondev.fr/orion/blahaj-clicker.git
 cd blahaj-clicker
 bun install
 ```
