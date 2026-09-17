@@ -1,9 +1,9 @@
 services:
-  blahaj-clicker:
+  clicker:
     build: .
-    container_name: blahaj-clicker
+    container_name: buoy-clicker
     ports:
-      - 127.0.0.1:8007:3000
+      - 127.0.0.1:8008:3000
     environment:
       DATABASE: /data/blahaj.sqlite
       GOAL: 1000000

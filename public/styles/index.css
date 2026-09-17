@@ -52,7 +52,7 @@ h2 {
 .blahaj > div {
     width: 400px;
     height: 400px;
-    background-image: url(/public/assets/blahaj.png);
+    background-image: url(/public/assets/buoy.png);
     background-size: cover;
 
 }
