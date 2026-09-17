@@ -6,7 +6,6 @@ const progress = document.getElementById("progress");
 const goal = 1000000;
 let init = true;
 let count = 0;
-let clickUUIDs = [];
 
 let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 if (localStorage.getItem("theme")) {
@@ -29,12 +28,6 @@ function initWebsocket() {
                 let uuid = event.data.split("_")[2];
                 if (!uuid) updateCount();
                 updateCount(uuid);
-            } else if (event.data === "spamhaj") {
-                error.textContent = `Blahaj spam has been detected, please wait for the spam to subside.`;
-                if (timeout) clearTimeout(timeout);
-                timeout = setTimeout(() => {
-                    error.textContent = "";
-                }, 1000);
             } else if (event.data.startsWith("show_")) {
                 let urlEncoded = event.data.split("_")[1];
                 let url = atob(urlEncoded);
@@ -64,20 +57,7 @@ let timeout;
 setInterval(() => ws.send("ping"), 30 * 1000)
 
 blahaj.addEventListener("click", () => {
-    count++;
-    updateCount("1");
-
-    let uuid = crypto.randomUUID();
-    clickUUIDs.push(uuid);
-    fetch(`/websocket/click`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            uuid
-        })
-    });
+    ws.send("click");
 });
 
 mode.addEventListener("click", () => {
@@ -89,10 +69,6 @@ function updateCount(uuid = "0") {
     countEl.textContent = count.toLocaleString("fr-FR");
 
     if (uuid === "0") return;
-    if (clickUUIDs.includes(uuid)) {
-        clickUUIDs = clickUUIDs.filter(u => u !== uuid);
-        return;
-    }
 
     let degree = (count - Math.floor(count / 45) * 45) * 8;
     blahaj.querySelector("div").style.transform = `rotate(${degree}deg)`;

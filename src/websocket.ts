@@ -1,4 +1,4 @@
-import Elysia, { t } from "elysia";
+import Elysia from "elysia";
 import { ElysiaWS } from "elysia/dist/ws";
 import { getCount, updateCount } from "./utils/database";
 
@@ -18,27 +18,24 @@ export default new Elysia({ prefix: "/websocket", websocket: { idleTimeout: 20 *
 
             if (isGoalReached()) return ws.send(`show_${btoa(process.env.GOAL_IMAGE_URL!)}`);
         },
-        message(ws) {
-            ws.send("pong");
+        message(ws, message) {
+            if (message === "ping") return ws.send("pong");
+            if (message !== "click") return;
+
+            const count = getCount() + 1;
+            updateCount(count);
+            for (const client of Object.values(clients))
+                client.ws.send(`blahaj_${count}_1`);
+
+            if (isGoalReached())
+                for (const client of Object.values(clients))
+                    client.ws.send(`show_${btoa(process.env.GOAL_IMAGE_URL!)}`);
         },
         close(ws) {
             const client = clients[ws.id];
             console.log(`${client.ip} disconnected from the websocket. (Current connections: ${Object.keys(clients).length})`);
             delete clients[ws.id];
         }
-    })
-    .post("/click", async ({ headers, server, body }) => {
-        let count = getCount() + 1;
-        updateCount(count);
-        server!.publish("blahaj", `blahaj_${count}_${body.uuid}`);
-
-        if (isGoalReached()) return server!.publish("blahaj", `show_${btoa(process.env.GOAL_IMAGE_URL!)}`);
-
-        return { ok: true }
-    }, {
-        body: t.Object({
-            uuid: t.String()
-        })
     })
 
 function isGoalReached(): boolean {
