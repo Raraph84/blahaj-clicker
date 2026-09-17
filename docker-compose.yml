@@ -1,0 +1,14 @@
+services:
+  blahaj-clicker:
+    build: .
+    container_name: blahaj-clicker
+    ports:
+      - 127.0.0.1:8007:3000
+    environment:
+      DATABASE: /data/blahaj.sqlite
+      GOAL: 1000000
+      GOAL_IMAGE_URL: /public/assets/blahaj-goal-feur.png
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+    network_mode: bridge

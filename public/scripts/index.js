@@ -38,10 +38,11 @@ function initWebsocket() {
             } else if (event.data.startsWith("show_")) {
                 let urlEncoded = event.data.split("_")[1];
                 let url = atob(urlEncoded);
-                document.body.style.background = `url(${url})`;
-                document.body.style.backgroundSize = "cover";
-                document.body.style.backgroundRepeat = "no-repeat";
-                document.body.classList.add("dark");
+                blahaj.children[0].style.backgroundImage = `url(${url})`;
+                //document.body.style.background = `url(${url})`;
+                //document.body.style.backgroundSize = "cover";
+                //document.body.style.backgroundRepeat = "no-repeat";
+                //document.body.classList.add("dark");
             }
         }
     });
