@@ -9,6 +9,7 @@
     "@elysiajs/cors": "^1.4.0",
     "@elysiajs/html": "^1.4.0",
     "@elysiajs/static": "^1.4.6",
+    "bun": "^1.4.2",
     "elysia": "latest",
     "lucide-static": "^0.539.0"
   },
