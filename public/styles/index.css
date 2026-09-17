@@ -12,6 +12,8 @@ body {
     flex-direction: column;
 
     height: 100dvh;
+    background-image: url(/public/assets/background.jpg);
+    background-size: cover;
 }
 
 body.dark {

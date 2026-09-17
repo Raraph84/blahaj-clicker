@@ -113,7 +113,7 @@ function updateCount(uuid = "0") {
 function updateTheme() {
     localStorage.setItem("theme", isDarkMode ? "dark":"light");
     if (isDarkMode) {
-        document.body.classList.add("dark");
+        //document.body.classList.add("dark");
     } else {
         document.body.classList.remove("dark");
     }
