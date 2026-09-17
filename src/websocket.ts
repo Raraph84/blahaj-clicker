@@ -41,8 +41,8 @@ export default new Elysia({ prefix: "/websocket", websocket: { idleTimeout: 20 *
         },
         close(ws) {
             const client = clients[ws.id];
-            console.log(`${client.ip} disconnected from the websocket. (Current connections: ${Object.keys(clients).length})`);
             delete clients[ws.id];
+            console.log(`${client.ip} disconnected from the websocket. (Current connections: ${Object.keys(clients).length})`);
         }
     })
 
